@@ -1,5 +1,6 @@
 import express from "express";
 import mysql from "mysql";
+import cors from "cors";
 
 const app = express();
 
@@ -11,7 +12,8 @@ const db = mysql.createConnection({
     database: "shop"
 })
 
-app.use(express.json())
+app.use(express.json());
+app.use(cors());
 
 // DEFAULT ROUTE: LANDING PAGE
 app.get("/", (req, res)=>{
