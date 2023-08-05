@@ -31,9 +31,9 @@ app.get("/items", (req, res)=>{
 
 // CREATE -- TO ADD NEW ITEM INTO THE DB -- POST METHOD
 app.post("/items", (req, res)=>{
-    const q = "INSERT INTO ITEMS ( `title`, `description`, `cover`) VALUES (?)";
+    const q = "INSERT INTO ITEMS ( `title`, `description`, `cover`, `price`) VALUES (?)";
     const values = [
-        req.body.title, req.body.description, req.body.cover
+        req.body.title, req.body.description, req.body.cover, req.body.price
     ];
 
     db.query(q, [values], (err, data)=>{
