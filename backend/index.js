@@ -71,6 +71,31 @@ app.put("/items/:id", (req, res) => {
     });
 });
 
+// GET ITEMS IN THE CART - ID PASSED IN AS A STRING
+app.post("/get-cart", (req, res) => {
+    // GET USER DETAILS FROM DB [ADMIN]
+    const q = "SELECT * from items WHERE id IN (?)";
+    var values = "";
+    console.log(req.body);
+    if (req.body.id.length > 0) {
+        values = req.body["id"].split(",");
+        var intVal = [];
+        for(var i=0; i<values.length; i++) intVal.push(parseInt(values[i]))
+        
+        console.log(values);
+        // console.log(intVal);
+
+        // EXECUTE QUERY
+        db.query(q, intVal, (err, data) => {
+            if (err) return res.json(err);
+            console.log(data);
+            return res.json(data);
+        })
+    }
+    // return res.send("No items in cart");
+
+})
+
 // GET USER FROM DB & VALIDATE (AUTHENTICATION)
 app.post("/admin-login", (req, res) => {
     // GET USER DETAILS FROM DB [ADMIN]
@@ -79,11 +104,11 @@ app.post("/admin-login", (req, res) => {
     const values = [req.body.username, req.body.password];
 
     db.query(q, values, (err, data) => {
-        if(err) return res.send(err);
+        if (err) return res.send(err);
 
         if (data.length > 0) {
             return res.send(true)
-        } 
+        }
         return res.send(false)
     })
 })
