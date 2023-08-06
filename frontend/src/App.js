@@ -8,6 +8,7 @@ import authService from "./services/auth.service"
 
 import "./style.css"
 import Login from './pages/Login';
+import View from './pages/View';
 
 const PrivateRoutes = () => {
   let auth = { 'token': authService.getToken }
@@ -26,6 +27,8 @@ function App() {
           <Route path="/add" element={<Add />} ></Route>
           <Route path="/update/:id" element={<Update />} ></Route>
           <Route path="/admin-login" element={<Login />} ></Route>
+          <Route path="/user-view" element={<View />} ></Route>
+
 
 
           {/* Protected routes below here -- Require authentication [ADMIN] */}
