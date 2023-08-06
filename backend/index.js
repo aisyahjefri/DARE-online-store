@@ -71,6 +71,22 @@ app.put("/items/:id", (req, res) => {
     });
 });
 
+// GET USER FROM DB & VALIDATE (AUTHENTICATION)
+app.post("/admin-login", (req, res) => {
+    // GET USER DETAILS FROM DB [ADMIN]
+    const q = "SELECT username, password from login WHERE username = ? AND password = ?";
+
+    const values = [req.body.username, req.body.password];
+
+    db.query(q, values, (err, data) => {
+        if(err) return res.send(err);
+
+        if (data.length > 0) {
+            return res.send(true)
+        } 
+        return res.send(false)
+    })
+})
 
 // APPLICATION RUNS ON PORT 8008
 app.listen(8008, () => {
